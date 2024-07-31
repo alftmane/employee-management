@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الموظفين</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <header>
+        <h1>إدارة الموظفين</h1>
+    </header>
+    <main>
+        <section id="login">
+            <h2>تسجيل الدخول</h2>
+            <input type="text" id="username" placeholder="اسم المستخدم">
+            <input type="password" id="password" placeholder="كلمة المرور">
+            <button onclick="login()">تسجيل الدخول</button>
+        </section>
+
+        <section id="dashboard" style="display: none;">
+            <h2>لوحة التحكم</h2>
+            <div class="toolbar">
+                <button onclick="showAddEmployeeForm()">إضافة موظف</button>
+                <input type="text" id="search" placeholder="بحث..." onkeyup="searchEmployees()">
+                <select id="filter-department" onchange="filterEmployees()">
+                    <option value="">كل الأقسام</option>
+                    <!-- قم بإضافة الأقسام هنا -->
+                </select>
+                <select id="filter-role" onchange="filterEmployees()">
+                    <option value="">كل الوظائف</option>
+                    <!-- قم بإضافة الوظائف هنا -->
+                </select>
+                <select id="filter-location" onchange="filterEmployees()">
+                    <option value="">كل المواقع</option>
+                    <!-- قم بإضافة المواقع هنا -->
+                </select>
+            </div>
+            <div id="employee-list"></div>
+        </section>
+
+        <section id="add-employee" style="display: none;">
+            <h2>إضافة موظف جديد</h2>
+            <input type="text" id="new-employee-name" placeholder="اسم الموظف">
+            <input type="text" id="new-employee-role" placeholder="الوظيفة">
+            <input type="text" id="new-employee-department" placeholder="القسم">
+            <input type="text" id="new-employee-location" placeholder="موقع العمل">
+            <button onclick="addEmployee()">إضافة</button>
+            <button onclick="hideAddEmployeeForm()">إلغاء</button>
+        </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="scripts.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>
